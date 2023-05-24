@@ -11,7 +11,7 @@
 >>> add_integer("poop", 2)
 Traceback (most recent call last):
 	...
-TypeError: a must be and integer
+TypeError: a must be an integer
 
 >>> add_integer(2, "more poop")
 Traceback (most recent call last):
