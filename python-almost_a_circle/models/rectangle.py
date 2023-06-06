@@ -1,13 +1,10 @@
 #!/usr/bin/python3
 """This is the Rectangle class module"""
-
-
-from modules.base import Base
+from models.base import Base
 
 
 class Rectangle(Base):
     """This is the Rectangle class object from Base"""
-
     def __init__(self, width, height, x=0, y=0, id=None):
         self.__width = width
         self.__height = height
