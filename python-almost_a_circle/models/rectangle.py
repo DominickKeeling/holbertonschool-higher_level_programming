@@ -39,7 +39,7 @@ class Rectangle(Base):
             raise ValueError("Height value must be > 0")
         self.__height = height
 
-     @property
+    @property
     def x(self):
         """getter for x"""
         return self.__x
