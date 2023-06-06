@@ -1,8 +1,8 @@
 #!/usr/bin/python3
-"""This is the class base module"""
+"""This is the class Base module"""
 
 
-class Bass():
+class Base():
 """This is the Base class"""
 
 
