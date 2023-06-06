@@ -31,4 +31,3 @@ class Base():
             else:
                 jsn = [i.to_dictionary() for i in list_objs]
                 jsonfile.write(Base.to_json_string(jsn))
-
