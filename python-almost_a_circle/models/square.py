@@ -6,7 +6,7 @@ from models.rectangle import Rectangle
 class Square(Rectangle):
     """this is the Square class object of Rectangle"""
     def __init__(self, size, x=0, y=0, id=None):
-        #order matters. follow rectangle
+        # order matters. follow rectangle
         super().__init__(size, size, x, y, id)
 
     def __str__(self):
