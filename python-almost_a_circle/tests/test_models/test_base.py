@@ -2,15 +2,16 @@ import unittest
 import os
 import io
 import sys
-from models.base import Base
+from models.base import Base as Base
+from models.rectangle import Rectangle as Rectangle
+from models.square import Square as Square
 
 
 class TestBase(unittest.TestCase):
     """ test class for Base class """
     # setup and teardown methods are called before and after each test
     def setUp(self):
-        """Reset the __nb_objects counter.
-        print test"""
+        """Reset the __nb_objects counter and print test"""
         print("Base setUp")
         self.capture_output = io.StringIO()
         sys.stdout = self. capture_output
