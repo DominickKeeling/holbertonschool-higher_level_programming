@@ -48,3 +48,14 @@ class Base():
             dummy_instance = cls(1, 1)
         dummy_instance.update(**dictionary)
         return dummy_instance
+
+    @classmethod
+    def load_from_file(cls):
+    """Returns a list of instances"""
+        classfile = cls.__name__ + ".json"
+        try:
+            with open(classfile) as jsn:
+                js = Base.from_json_string(jsn.read())
+                return [cls.creare(**j) for j in js]
+            except IOError:
+                return []
