@@ -21,6 +21,8 @@ class BaseTests(unittest.TestCase):
         cls.rect1 = Rectangle(1, 1, 0, 0, 200)
         cls.square1 = Square(1, 0, 0, 300)
 
+        Base._base__nb_objects = 0
+
     @classmethod
     def tearDownClass(cls):
         """
