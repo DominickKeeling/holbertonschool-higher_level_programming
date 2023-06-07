@@ -56,6 +56,6 @@ class Base():
         try:
             with open(classfile) as jsn:
                 js = Base.from_json_string(jsn.read())
-                return [cls.creare(**j) for j in js]
+                return [cls.create(**j) for j in js]
         except IOError:
             return []
