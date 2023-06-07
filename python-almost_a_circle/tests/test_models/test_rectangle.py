@@ -1,6 +1,3 @@
-#!/usr/bin/python3
-""" This module is a unittest for the Rectangle class """
-
 import unittest
 from unittest.mock import patch
 import sys

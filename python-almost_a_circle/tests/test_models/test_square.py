@@ -1,6 +1,3 @@
-#!/usr/bin/python3
-"""Module square"""
-
 import unittest
 from models.rectangle import Rectangle
 from models.square import Square

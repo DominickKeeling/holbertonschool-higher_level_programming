@@ -1,6 +1,3 @@
-#!/usr/bin/python3
-""" This module is a unittest for the Base class """
-
 import unittest
 import os
 import io
