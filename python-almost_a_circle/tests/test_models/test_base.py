@@ -1,142 +1,118 @@
 #!/usr/bin/python3
-"""
-Unittest module for Base class.
-"""
+""" This module is a unittest for the Base class """
+
 import unittest
-from models.base import Base as Base
-from models.rectangle import Rectangle as Rectangle
-from models.square import Square as Square
+import os
+import io
+import sys
+from models.base import Base
 
 
-class BaseTests(unittest.TestCase):
-    """
-    Class BaseTests that provides unit testing for the `Base` class.
-    """
-    @classmethod
-    def setUpClass(cls):
+class TestBase(unittest.TestCase):
+    """ test class for Base class """
+    # setup and teardown methods are called before and after each test
+    def setUp(self):
+        """Reset the __nb_objects counter.
+        print test"""
+        print("Base setUp")
+        self.capture_output = io.StringIO()
+        sys.stdout = self. capture_output
+
+        Base._Base__nb_objects = 0
+
+        self.base = Base()
+
+    def tearDown(self):
+        print("Base tearDown")
+
+        sys.stdout = sys.__stdout__
+
+        del self.base
+        try:
+            os.remove("Base.json")
+        except FileNotFoundError:
+            pass
+
+    def test_print(self):
+        """ test print method """
+        print("Hello, world!")
+        self.assertEqual(self.capture_output.getvalue(), "Hello, world!\n")
+        print("Hello, world!", file=sys.__stdout__)
+
+    # test id assignment and if it increments correctly
+    def test_id(self):
+        """Test __init__ method:
+        id assignment in the Base class. """
+        self.assertEqual(self.base.id, 1)
+        base2 = Base(50)
+        self.assertEqual(base2.id, 50)
+        base3 = Base()
+        self.assertEqual(base3.id, 2)
+
+    def test_too_many_args(self):
         """
-        setUp method for testing the Base class.
+        test too many args to init
         """
-        cls.base1 = Base()
-        cls.rect1 = Rectangle(1, 1, 0, 0, 200)
-        cls.square1 = Square(1, 0, 0, 300)
-
-        Base._base__nb_objects = 0
-
-    @classmethod
-    def tearDownClass(cls):
-        """
-        tearDown method for testing the Base class.
-        """
-        del cls.base1
-        del cls.rect1
-        del cls.square1
-        return super().tearDownClass()
-
-    def test_init(self):
-        """
-        Method for testing initialization of the Base class.
-        """
-        self.assertEqual(self.base1.id, 1)
-
-        self.base2 = Base(2)
-        self.assertEqual(self.base2.id, 2)
-
-        self.base3 = Base()
-        self.assertEqual(self.base3.id, 2)
-
-        self.assertEqual(self.base2.id, self.base3.id)
-
-        """
-        There is no sanitization for id: it can be any type,
-        though it is assumed to be an integer
-        <<Possibly Not Required>>
-        """
-        self.base4 = Base("stuff")
-        self.assertEqual(self.base4.id, 'stuff')
-
-        del self.base2
-        del self.base3
-        del self.base4
+        # test too many args
+        with self.assertRaises(TypeError):
+            Base(1, 1, 1, 1, 1, 1, 1)
 
     def test_to_json_string(self):
+        """ Test to_json_string method:
+        returns the JSON string representation of list_directories
         """
-        Method for testing the to_json_string method in the Base
-        class.
-        """
-        dictionary_r = self.rect1.to_dictionary()
-        json_dictionary_r = self.rect1.to_json_string([dictionary_r])
-        dicStr = '[{"x": 0, "y": 0, "id": 200, "height": 1, "width": 1}]'
-        self.assertEqual(json_dictionary_r, dicStr)
-
-        dictionary_s = self.square1.to_dictionary()
-        json_dictionary_s = self.square1.to_json_string([dictionary_s])
-        dicStr = '[{"id": 300, "x": 0, "size": 1, "y": 0}]'
-        self.assertEqual(json_dictionary_s, dicStr)
-
-        self.assertRaises(TypeError, self.square1.to_json_string, dictionary_s)
-        self.assertRaises(TypeError, self.square1.to_json_string, [1])
-
-        dicList = [self.square1.to_dictionary(), self.rect1.to_dictionary()]
-        dicStr = '[{"id": 300, "x": 0, "size": 1, "y": 0}, ' \
-            + '{"x": 0, "y": 0, "id": 200, "height": 1, "width": 1}]'
-        self.assertEqual(self.square1.to_json_string(dicList), dicStr)
-
-        self.assertEqual(self.square1.to_json_string(None), "[]")
-        self.assertEqual(self.square1.to_json_string([]), "[]")
-
-    def test_save_to_file(self):
-        """
-        Method for testing the save_to_file method in the Base
-        class.
-        """
-        pass
+        # test empty list
+        self.assertEqual(Base.to_json_string([]), "[]")
+        # test None
+        self.assertEqual(Base.to_json_string(None), "[]")
+        # test normal list
+        list_directories = [
+            {"id": 1, "width": 2, "height": 3, "x": 4, "y": 5},
+            {"id": 6, "width": 7, "height": 8, "x": 9, "y": 10}
+            ]
+        expected_json = (
+            '[{"id": 1, "width": 2, "height": 3, "x": 4, "y": 5}, '
+            '{"id": 6, "width": 7, "height": 8, "x": 9, "y": 10}]')
+        self.assertEqual(Base.to_json_string(list_directories), expected_json)
 
     def test_from_json_string(self):
+        """ Test from_json_string method: returns the list of the JSON string
+        representation json_string
         """
-        Method for testing the from_json_string method in the Base
-        class.
+        # test empty string
+        self.assertEqual(Base.from_json_string(""), [])
+
+        # test empty list
+        self.assertEqual(Base.from_json_string("[]"), [])
+
+        # test None
+        self.assertEqual(Base.from_json_string(None), [])
+
+        # test normal list
+        json_string = (
+            '[{"id": 1, "width": 2, "height": 3, "x": 4, "y": 5}, '
+            '{"id": 6, "width": 7, "height": 8, "x": 9, "y": 10}]')
+        expected_list = [
+            {"id": 1, "width": 2, "height": 3, "x": 4, "y": 5},
+            {"id": 6, "width": 7, "height": 8, "x": 9, "y": 10}]
+        self.assertEqual(Base.from_json_string(json_string), expected_list)
+
+        # test invalid json string
+        with self.assertRaises(ValueError):
+            Base.from_json_string("invalid")
+
+    def test_save_to_file(self):
+        """ Test save_to_file method: for Base class
         """
-        list_input = [
-            {'id': 89, 'width': 10, 'height':4},
-            {'id': 7, 'size': 3}
-        ]
-        json_list_input = Rectangle.to_json_string(list_input)
-        list_output = Base.from_json_string(json_list_input)
-        self.assertEqual(list_output, list_input)
+        # Test checks correct handling of None by creating an empty file
+        Base.save_to_file(None)
+        with open("Base.json", "r", encoding="utf-8") as file:
+            self.assertEqual(file.read(), "[]")
+        # Test correct handling of empty list to create empty file
+        Base.save_to_file([])
+        with open("Base.json", "r", encoding="utf-8") as file:
+            self.assertEqual(file.read(), "[]")
 
-        json_list_input = Rectangle.to_json_string([])
-        list_output = Base.from_json_string(json_list_input)
-        self.assertEqual(list_output, [])
-
-        list_output = Base.from_json_string(None)
-        self.assertEqual(list_output, [])
-
-        self.assertRaises(TypeError, Rectangle.from_json_string, 5)
-
-    def test_create(self):
-        """
-        Method for testing the create method in the Base class.
-        """
-        rect1_dict = {'height': 1, 'width': 1, 'id': 400}
-        r1 = self.rect1.create(**rect1_dict)
-        self.assertTrue(type(r1), Rectangle)
-
-        square1_dict = {'size': 1, 'id': 500}
-        s1 = self.square1.create(**square1_dict)
-        self.assertTrue(type(s1), Square)
-
-        self.assertRaises(TypeError, self.square1.create(), 1)
-
-        del r1
-        del s1
-
-    def test_load_from_file(self):
-        """
-        Method for testing the load_from_file method in the
-        Base class.
-        """
-        pass
 
 if __name__ == '__main__':
     unittest.main()
