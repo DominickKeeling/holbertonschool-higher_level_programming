@@ -6,9 +6,7 @@ import MySQLdb
 import sys
 
 
-def list_N_states():
-    """ List the states that start with 'N '"""
-
+if __name__ == "__main__":
     db = MySQLdb.connect(host="localhost", port=3306, user=sys.argv[1],
                          passwd=sys.argv[2], db=sys.argv[3])
 
@@ -21,7 +19,3 @@ def list_N_states():
 
     cur.close()
     db.close()
-
-
-if __name__ == "__main__":
-    list_N_states()
