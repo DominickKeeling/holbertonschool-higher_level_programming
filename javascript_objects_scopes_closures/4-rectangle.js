@@ -14,26 +14,28 @@ Create an instance method called double() that multiples the width and the
 height of the rectangle by 2
 */
 module.exports = class Rectangle {
-    constructor (w, h) {
-        if (w <== 0 || h <== 0) {
-            return {};
-        }
-        this.width = w;
-        this.height = h;
+    constructor (w = -1, h = -1) {
+      if (w <= 0 || h <= 0) {
+        return;
+      }
+      this.width = w;
+      this.height = h;
     }
-
+  
     print () {
-        for (let i = 0; i < this.height; i++) {
-            console.log('X'.repeat(this.width));
-        }
+      for (let i = 0; i < this.height; i++) {
+        console.log('X'.repeat(this.width));
+      }
     }
-
+  
     rotate () {
-        [this.width, this.height] = [this.height, this.width];
+      const tmp = this.width;
+      this.width = this.height;
+      this.height = tmp;
     }
-
-    double() {
-        this.width *= 2;
-        this.height *= 2;
+  
+    double () {
+      this.width *= 2;
+      this.height *= 2;
     }
-}
+  }
