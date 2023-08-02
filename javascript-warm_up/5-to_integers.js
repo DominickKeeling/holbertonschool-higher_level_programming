@@ -7,9 +7,9 @@ You are not allowed to use var
 You are not allowed to use try/catch
 */
 
-const Args = process.argv.slice(2);
-if (isNaN(Args[0])) {
+const inValue = process.argv[2];
+if (isNaN(inValue)) {
   console.log('Not a number');
 } else {
-  console.log('My number: %i', Args[0]);
+  console.log('My number: ' + parseInt(inValue));
 }

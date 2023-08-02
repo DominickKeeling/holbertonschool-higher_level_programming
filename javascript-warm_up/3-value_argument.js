@@ -7,8 +7,9 @@ you are not allowed to use var
 you are not allowed to use lengnth
 */
 
-if (!process.argv[2]) {
-    console.log('No argument');
-  } else {
-    console.log(process.arg[2]);
-  }
+let i = 1;
+const values = ['No argument', process.argv[2]];
+if (values[1] === undefined) {
+  i--;
+}
+console.log(values[i]);
