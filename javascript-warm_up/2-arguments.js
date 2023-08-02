@@ -8,19 +8,12 @@ You must use console.log(...) to print all the output
 Not allowed to use var
 */
 
-const numArgs = process.argv.length -2;
+const argsLength = process.argv.length;
 
-if (numArgs === 0)
-{
-    console.log('No argument');
+if (argsLength < 3) {
+  console.log('No argument');
+} else if (argsLength === 3) {
+  console.log('Argument found');
+} else {
+  console.log('Arguments found');
 }
-else if (numArgs === 1)
-{
-    console.log('Argument found');
-}
-else
-{
-    console.log('Argument found');
-}
-    
-console.log();

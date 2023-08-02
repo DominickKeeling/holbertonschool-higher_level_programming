@@ -6,12 +6,13 @@ The second argument is the second integer
 You have to define a function with this prototype: function add(a, b)
 */
 
-const firstInt = process.argv[2];
-const secondInt = process.argv[3];
-
-function add (a, b)
-{
-    return a + b;
+const myArgs = process.argv.slice(2);
+if (isNaN(myArgs[0]) || isNaN(myArgs[1])) {
+  console.log('NaN');
+} else {
+  console.log(add(myArgs[0], myArgs[1]));
 }
 
-console.log(add(firstInt, secondInt));
+function add (a, b) {
+  return +a + +b;
+}

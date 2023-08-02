@@ -7,9 +7,8 @@ you are not allowed to use var
 you are not allowed to use lengnth
 */
 
-const fistArgument = process.argv -1;
-
-if (firstArgument === 1)
-{
+if (!process.argv[2]) {
     console.log('No argument');
-}
+  } else {
+    console.log(process.arg[2]);
+  }

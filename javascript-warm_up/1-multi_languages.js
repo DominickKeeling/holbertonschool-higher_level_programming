@@ -8,10 +8,10 @@ You must use console.log(...) to print all output
 You are not allowed to use var
 */
 
-const fistLine = 'C is fun\n';
-const secondLine = 'Python is cool\n';
-const thirdLine = 'JavaScript is amazing\n';
+const firstLine = 'C is fun';
+const secondLine = 'Python is cool';
+const thirdLine = 'JavaScript is amazing';
 
-const poop = fistLine + secondLine + thirdLine;
-
-console.log(poop);
+console.log(firstLine);
+console.log(secondLine);
+console.log(thirdLine);

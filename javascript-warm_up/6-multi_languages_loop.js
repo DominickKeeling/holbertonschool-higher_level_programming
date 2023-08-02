@@ -9,10 +9,7 @@ You are not allowed to use any if/else statements
 You can only use one console.log
 You must use a loop (while, for, etc)
 */
-
-const lines = ["C is fun", "Python is cool", "JavaScript is amazing"];
-
-for (const line of lines)
-{
-    console.log(lines);
+const myArr = ['C is fun', 'Python is cool', 'JavaScript is amazing'];
+for (let x = 0; x < myArr.length; x++) {
+  console.log(myArr[x]);
 }

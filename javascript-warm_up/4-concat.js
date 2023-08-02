@@ -6,7 +6,5 @@ You must use console.log()
 Not allowed to use var
 */
 
-const arg1 = process.argv[2];
-const arg2 = process.argv[3];
-
-console.log('${arg1} is ${arg2}');
+const Args = process.argv.slice(2);
+console.log('%s is %s', Args[0], Args[1]);

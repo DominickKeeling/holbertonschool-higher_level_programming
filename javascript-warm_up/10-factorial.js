@@ -8,21 +8,13 @@ You must do it recursively
 You must use a function
 */
 
-const userInput = parseInt(process.argv[2]);
-
-function factorial(num)
-{
-    if (isNaN(number))
-    {
-        return 1;
-    }
-
-    if (num === 0 || num === 1)
-    {
-        return 1;
-    }
-
-    return n * factorial(num - 1);
+const myArgs = process.argv.slice(2);
+if (isNaN(myArgs[0])) {
+  console.log('%i', 1);
+} else {
+  console.log(factorial(myArgs[0]));
 }
 
-console.log(factorial(userInput));
+function factorial (x) {
+  return (x !== 1) ? x * factorial(x - 1) : 1;
+}

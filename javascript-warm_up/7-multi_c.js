@@ -9,13 +9,11 @@ Must use a loop (while, for, etc)
 
 const input = process.argv[2];
 
-if (isNaN(input))
-{
-    console.log('Missing number of occurences')
-}
-const numberOfOccurrences = parse(input);
-
-for(let i = 0; i < numberOfOccurrences; i++)
-{
+const myArg = process.argv.slice(2);
+if (isNaN(myArg[0])) {
+  console.log('Missing number of occurrences');
+} else {
+  for (let x = 0; x < myArg[0]; x++) {
     console.log('C is fun');
+  }
 }
