@@ -13,7 +13,7 @@ height of the rectangle
 Create an instance method called double() that multiples the width and the
 height of the rectangle by 2
 */
-class Rectangle {
+module.exports = class Rectangle {
     constructor (w, h) {
         if (w <== 0 || h <== 0) {
             return {};
@@ -37,5 +37,3 @@ class Rectangle {
         this.height *= 2;
     }
 }
-
-module.exports = Rectangle;
