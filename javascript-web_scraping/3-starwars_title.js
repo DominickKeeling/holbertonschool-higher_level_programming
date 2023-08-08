@@ -9,22 +9,17 @@ You must use the module request
 
 const request = require('request');
 
-// construct url endpoint using movie id
-const movieId = process.id [2]
-const url = 'https://swapi-api.hbtn.io/api/films/:id';
+const movieId = process.argv[2];
 
+const url = `https://swapi-api.hbtn.io/api/films/${movieId}/`;
 
-/* make the api request
-using the request module make an HTTP GET request to API URL
-*/
-request(url, (error, response, body) => {
-    if (error) {
-        console.error(error);
-        return;
-    }
-/* Hanle the API response using the callback function of the request function
-Then parse the JSON response to get the movie details
-*/
-    const movie = JSON.parse(body);
-    console.log(movie.title);
-})
+request(url, (err, response, body) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
+
+  const data = JSON.parse(body);
+
+  console.log(`${data.title}`);
+});

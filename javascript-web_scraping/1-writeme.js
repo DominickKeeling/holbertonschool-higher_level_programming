@@ -8,13 +8,13 @@ The content must be written in utf-8
 If an error occurred during while writting, print the error object
 */
 
-const fs = require('fs');
+const fileReader = require('fs');
 
-const filePath = process.arg[2];
-const content = process.arg[3];
+const myTargetFile = process.argv[2];
+const myContent = process.argv[3];
 
-fs.writeFile(filePath, content, 'utf-8', (error) => {
-    if (error) {
-        console.error(error);
-    }
-})
+fileReader.writeFile(myTargetFile, myContent, 'utf8', function (err) {
+  if (err) {
+    console.log(err); // Log the error if writing fails
+  }
+});
