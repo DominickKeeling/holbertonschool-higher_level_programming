@@ -7,21 +7,23 @@ You must use the module request
 */
 
 const request = require('request');
-
 const apiUrl = process.argv[2];
-const characterId = 18;
 
 request(apiUrl, (error, response, body) => {
   if (error) {
-    console.error(error);
+    console.log(error);
     return;
   }
-  const films = JSON.parse(body).results;
-  const count = films.reduce((total, film) => {
-    if (film.characters.includes(`https://swapi-api.hbtn.io/api/people/${characterId}/`)) {
-      return total + 1;
+
+  const movieData = JSON.parse(body);
+  let count = 0;
+
+  for (let i = 0; i < movieData.results.length; i++) {
+    const characterUrls = movieData.results[i].characters;
+    if (characterUrls.includes('https://swapi-api.hbtn.io/api/people/18/')) {
+      count++;
     }
-    return total;
-  }, 0);
+  }
+
   console.log(count);
 });
